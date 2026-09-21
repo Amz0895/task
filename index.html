@@ -1,379 +1,735 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Ticket Booking – Basic Form</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-        }
-        body {
-            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f3f 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            padding: 16px;
-        }
-        .booking-card {
-            background: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.6);
-            width: 100%;
-            max-width: 500px;
-            padding: 32px 28px;
-            transition: all 0.2s;
-        }
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: #0b1a2e;
-            margin: 0 0 8px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        h1 span {
-            background: #ffb800;
-            font-size: 1.8rem;
-            padding: 4px 12px;
-            border-radius: 40px;
-            color: #0b1a2e;
-            font-weight: 800;
-        }
-        .subhead {
-            color: #5e6f7d;
-            font-size: 1rem;
-            margin: 0 0 28px 0;
-            border-left: 4px solid #ffb800;
-            padding-left: 16px;
-            font-weight: 400;
-        }
-        .form-group {
-            margin-bottom: 22px;
-        }
-        label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #2c3e4e;
-            margin-bottom: 8px;
-        }
-        select, input {
-            width: 100%;
-            padding: 14px 18px;
-            font-size: 1rem;
-            background: #f2f6fa;
-            border: 2px solid #d9e2ec;
-            border-radius: 20px;
-            color: #0b1a2e;
-            font-weight: 500;
-            transition: 0.2s;
-            outline: none;
-        }
-        select:focus, input:focus {
-            border-color: #ffb800;
-            background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(255, 184, 0, 0.2);
-        }
-        .row-2col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        .btn-book {
-            width: 100%;
-            background: #0b1a2e;
-            color: white;
-            border: none;
-            padding: 18px 24px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 12px;
-            box-shadow: 0 12px 20px -8px rgba(11, 26, 46, 0.4);
-        }
-        .btn-book:hover {
-            background: #1e3a5a;
-            transform: scale(1.01);
-        }
-        .btn-book:active {
-            transform: scale(0.98);
-        }
-        .message-box {
-            margin-top: 24px;
-            padding: 16px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #e8f0fe;
-            color: #124076;
-            border-left: 6px solid #ffb800;
-            transition: 0.2s;
-        }
-        .message-box.error {
-            background: #ffe8e8;
-            color: #a11414;
-            border-left-color: #c62828;
-        }
-        .message-box.success {
-            background: #e3f7e8;
-            color: #0c5b2e;
-            border-left-color: #1e8f4e;
-        }
-        .price-badge {
-            display: inline-block;
-            background: #ffb800;
-            padding: 2px 12px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #0b1a2e;
-            margin-left: 10px;
-        }
-        .footer-note {
-            text-align: center;
-            font-size: 0.8rem;
-            color: #a0b3c4;
-            margin-top: 16px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Tickets · Book Your Ride</title>
+  <!-- Font Awesome for icons (optional, but adds visual flair) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #eef2f7 0%, #d9e2ec 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .ticket-app {
+      max-width: 1150px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 2.5rem;
+      box-shadow: 0 25px 50px -10px rgba(0, 20, 40, 0.25),
+                  inset 0 1px 2px rgba(255, 255, 255, 0.7);
+      padding: 2rem 2rem 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    h1 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #0a2e4b;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    h1 i {
+      background: #1b4e6e;
+      color: white;
+      padding: 0.6rem;
+      border-radius: 18px;
+      font-size: 1.4rem;
+      box-shadow: 0 8px 14px -6px rgba(0, 50, 80, 0.3);
+    }
+
+    .subhead {
+      color: #3d5d74;
+      font-weight: 400;
+      font-size: 1rem;
+      margin-left: 0.2rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid #83b3d0;
+      padding-left: 1rem;
+    }
+
+    /* search section */
+    .search-panel {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.9rem;
+      background: #ffffffd9;
+      padding: 1.5rem 1.5rem;
+      border-radius: 2rem;
+      box-shadow: 0 6px 18px rgba(0, 30, 50, 0.08);
+      margin-bottom: 2.5rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid #ffffff;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .input-group label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      color: #1a4c6e;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .input-group label i {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .input-group input,
+    .input-group select {
+      padding: 0.8rem 1rem;
+      border-radius: 1.2rem;
+      border: 1.5px solid #d4e2ef;
+      background: white;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #0f344c;
+      transition: 0.2s ease;
+      outline: none;
+      width: 100%;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+      border-color: #2d7ea0;
+      box-shadow: 0 0 0 3px rgba(45, 126, 160, 0.15);
+    }
+
+    .search-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: #0c3f5c;
+      border: none;
+      border-radius: 1.2rem;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      transition: 0.15s ease;
+      box-shadow: 0 10px 18px -10px #0a3147;
+      margin-top: 1.4rem;
+      border: 1px solid #236a8a;
+      letter-spacing: 0.3px;
+    }
+
+    .search-btn:hover {
+      background: #135b7e;
+      transform: scale(1.01);
+      box-shadow: 0 14px 22px -10px #06344d;
+    }
+
+    .search-btn i {
+      font-size: 1.1rem;
+    }
+
+    /* ticket list */
+    .ticket-section h2 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #123f59;
+      font-weight: 500;
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.3px;
+    }
+
+    .ticket-section h2 i {
+      color: #277a9e;
+      font-size: 1.5rem;
+    }
+
+    .ticket-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .ticket-card {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      border-radius: 1.8rem;
+      padding: 1.2rem 1.8rem;
+      box-shadow: 0 6px 16px rgba(0, 20, 30, 0.06);
+      border: 1px solid #e3eef9;
+      transition: 0.2s;
+      backdrop-filter: blur(4px);
+      border-left: 10px solid #2f84a8;
+    }
+
+    .ticket-card:hover {
+      border-left-color: #0f4f6e;
+      box-shadow: 0 12px 22px -8px rgba(20, 70, 100, 0.18);
+      background: #fcfdff;
+    }
+
+    .bus-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 170px;
+    }
+
+    .bus-name {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #0b2a3f;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .bus-name i {
+      color: #4499bb;
+      font-size: 1rem;
+    }
+
+    .bus-type {
+      font-size: 0.8rem;
+      background: #d7eaf3;
+      padding: 0.25rem 0.8rem;
+      border-radius: 30px;
+      display: inline-block;
+      width: fit-content;
+      margin-top: 0.35rem;
+      font-weight: 600;
+      color: #1a5875;
+      letter-spacing: 0.3px;
+    }
+
+    .route {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      flex: 2 1 250px;
+    }
+
+    .route-point {
+      display: flex;
+      flex-direction: column;
+      min-width: 100px;
+    }
+
+    .route-point .time {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #06283b;
+      letter-spacing: -0.2px;
+    }
+
+    .route-point .city {
+      font-size: 0.8rem;
+      color: #4a6f86;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .route-arrow {
+      color: #74a3ba;
+      font-size: 1.3rem;
+      padding: 0 0.2rem;
+    }
+
+    .duration {
+      font-size: 0.75rem;
+      background: #ecf5fa;
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      font-weight: 600;
+      color: #1a627c;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
+    }
+
+    .price-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      min-width: 130px;
+    }
+
+    .price {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #0a4868;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    .price small {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #537f98;
+      letter-spacing: 0;
+    }
+
+    .book-btn {
+      background: #e8f1f9;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #0b4261;
+      cursor: pointer;
+      transition: 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid #c6ddec;
+      box-shadow: 0 3px 7px rgba(0,0,0,0.02);
+    }
+
+    .book-btn:hover {
+      background: #0f4f6e;
+      color: white;
+      border-color: #0f4f6e;
+      box-shadow: 0 6px 12px -5px #0f4f6e;
+    }
+
+    .book-btn i {
+      font-size: 0.9rem;
+    }
+
+    /* no results */
+    .no-tickets {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #ffffffb0;
+      border-radius: 2rem;
+      color: #476f88;
+      font-weight: 500;
+      border: 1px dashed #b9d3e5;
+    }
+
+    .no-tickets i {
+      font-size: 2.2rem;
+      opacity: 0.6;
+      margin-bottom: 1rem;
+      color: #2b7092;
+    }
+
+    /* small toast for booking */
+    .toast-message {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.95);
+      background: #083c55;
+      color: white;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      box-shadow: 0 18px 28px -8px #041e2b;
+      opacity: 0;
+      transition: 0.2s ease;
+      pointer-events: none;
+      z-index: 999;
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      border: 1px solid #5b9fbb;
+    }
+
+    .toast-message.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* responsive */
+    @media (max-width: 750px) {
+      .ticket-app {
+        padding: 1.5rem;
+      }
+      .ticket-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.5rem;
+      }
+      .price-section {
+        align-items: flex-start;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .route {
+        justify-content: flex-start;
+        width: 100%;
+      }
+      .search-panel {
+        grid-template-columns: 1fr;
+      }
+      .search-btn {
+        margin-top: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="booking-card">
-        <h1>
-            🎬 CineBook
-            <span>🎟️</span>
-        </h1>
-        <p class="subhead">Book your movie tickets in seconds</p>
+<div class="ticket-app">
+  <header>
+    <h1>
+      <i class="fas fa-bus"></i> 
+      RideLine
+    </h1>
+    <div class="subhead">Book your bus tickets in seconds — travel smart.</div>
+  </header>
 
-        <!-- booking form (no page reload) -->
-        <form id="bookingForm" action="#" method="post">
-            <!-- movie selector -->
-            <div class="form-group">
-                <label for="movie">Select Movie</label>
-                <select id="movie" name="movie" required>
-                    <option value="" disabled selected>— Choose a movie —</option>
-                    <option value="Dune: Part Two">Dune: Part Two (Sci-Fi)</option>
-                    <option value="Oppenheimer">Oppenheimer (Drama)</option>
-                    <option value="The Batman">The Batman (Action)</option>
-                    <option value="Barbie">Barbie (Comedy)</option>
-                    <option value="Interstellar">Interstellar (Sci-Fi)</option>
-                </select>
-            </div>
-
-            <!-- showtime + number of tickets -->
-            <div class="row-2col">
-                <div class="form-group">
-                    <label for="showtime">Showtime</label>
-                    <select id="showtime" name="showtime" required>
-                        <option value="" disabled selected>— Time —</option>
-                        <option value="10:30 AM">10:30 AM</option>
-                        <option value="01:45 PM">01:45 PM</option>
-                        <option value="05:00 PM">05:00 PM</option>
-                        <option value="08:15 PM">08:15 PM</option>
-                        <option value="10:45 PM">10:45 PM</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="tickets">Tickets</label>
-                    <input type="number" id="tickets" name="tickets" min="1" max="10" value="2" required>
-                </div>
-            </div>
-
-            <!-- seat preference (extra detail) -->
-            <div class="form-group">
-                <label for="seatType">Seat Preference</label>
-                <select id="seatType" name="seatType">
-                    <option value="Regular" selected>Regular (₹250)</option>
-                    <option value="Premium">Premium (₹380)</option>
-                    <option value="Recliner">Recliner (₹550)</option>
-                </select>
-            </div>
-
-            <!-- book button -->
-            <button type="submit" class="btn-book" id="bookBtn">
-                🎫 Book Tickets
-            </button>
-        </form>
-
-        <!-- dynamic message area -->
-        <div id="messageBox" class="message-box" style="display: none;">
-            <!-- message injected via JS -->
-        </div>
-        <div class="footer-note">* basic demo – no real transaction</div>
+  <!-- search / filter area -->
+  <div class="search-panel">
+    <div class="input-group">
+      <label><i class="fas fa-map-pin"></i> From</label>
+      <input type="text" id="fromCity" placeholder="e.g. New York" value="New York">
     </div>
+    <div class="input-group">
+      <label><i class="fas fa-map-pin"></i> To</label>
+      <input type="text" id="toCity" placeholder="e.g. Boston" value="Boston">
+    </div>
+    <div class="input-group">
+      <label><i class="fas fa-calendar-alt"></i> Date</label>
+      <input type="date" id="travelDate" value="2025-06-15">
+    </div>
+    <div class="input-group">
+      <label><i class="fas fa-users"></i> Passengers</label>
+      <select id="passengerCount">
+        <option value="1">1 passenger</option>
+        <option value="2" selected>2 passengers</option>
+        <option value="3">3 passengers</option>
+        <option value="4">4 passengers</option>
+      </select>
+    </div>
+    <button class="search-btn" id="searchBtn">
+      <i class="fas fa-search"></i> Search buses
+    </button>
+  </div>
 
-    <script>
-        (function() {
-            // Get DOM elements
-            const form = document.getElementById('bookingForm');
-            const movieSelect = document.getElementById('movie');
-            const showtimeSelect = document.getElementById('showtime');
-            const ticketsInput = document.getElementById('tickets');
-            const seatTypeSelect = document.getElementById('seatType');
-            const messageBox = document.getElementById('messageBox');
-            const bookBtn = document.getElementById('bookBtn');
+  <!-- ticket results -->
+  <div class="ticket-section">
+    <h2>
+      <i class="fas fa-ticket-alt"></i> 
+      Available trips
+    </h2>
+    <div id="ticketList" class="ticket-grid">
+      <!-- dynamically injected via JS -->
+    </div>
+  </div>
+</div>
 
-            // Helper: base price per seat based on seat type
-            function getSeatPrice(seatType) {
-                switch (seatType) {
-                    case 'Regular': return 250;
-                    case 'Premium': return 380;
-                    case 'Recliner': return 550;
-                    default: return 250;
-                }
-            }
+<!-- toast notification -->
+<div id="toast" class="toast-message">
+  <i class="fas fa-check-circle"></i> <span id="toastText">Ticket booked!</span>
+</div>
 
-            // Helper: show message with type (success / error / info)
-            function showMessage(text, type = 'info') {
-                messageBox.style.display = 'flex';
-                messageBox.textContent = text;
-                // remove previous type classes
-                messageBox.classList.remove('error', 'success');
-                if (type === 'error') {
-                    messageBox.classList.add('error');
-                } else if (type === 'success') {
-                    messageBox.classList.add('success');
-                } else {
-                    // default / info style (same as base .message-box)
-                    // no extra class needed, but ensure error/success removed
-                }
-                // add a small emoji for clarity
-                if (type === 'error') {
-                    messageBox.innerHTML = '⚠️ ' + text;
-                } else if (type === 'success') {
-                    messageBox.innerHTML = '✅ ' + text;
-                } else {
-                    messageBox.innerHTML = 'ℹ️ ' + text;
-                }
-            }
+<script>
+  (function(){
+    // ----- MOCK DATA -----
+    const allBuses = [
+      {
+        id: 1,
+        name: 'Express Liner',
+        type: 'Luxury',
+        from: 'New York',
+        to: 'Boston',
+        depart: '08:30',
+        arrive: '12:45',
+        duration: '4h 15m',
+        price: 48,
+        icon: 'fa-bolt'
+      },
+      {
+        id: 2,
+        name: 'City Hopper',
+        type: 'Standard',
+        from: 'New York',
+        to: 'Boston',
+        depart: '10:15',
+        arrive: '15:00',
+        duration: '4h 45m',
+        price: 32,
+        icon: 'fa-city'
+      },
+      {
+        id: 3,
+        name: 'Coastal Ride',
+        type: 'Luxury',
+        from: 'New York',
+        to: 'Boston',
+        depart: '13:00',
+        arrive: '17:10',
+        duration: '4h 10m',
+        price: 52,
+        icon: 'fa-water'
+      },
+      {
+        id: 4,
+        name: 'Night Owl',
+        type: 'Sleeper',
+        from: 'New York',
+        to: 'Boston',
+        depart: '23:30',
+        arrive: '04:00',
+        duration: '4h 30m',
+        price: 59,
+        icon: 'fa-moon'
+      },
+      {
+        id: 5,
+        name: 'Metro Shuttle',
+        type: 'Standard',
+        from: 'New York',
+        to: 'Washington',
+        depart: '07:45',
+        arrive: '12:30',
+        duration: '4h 45m',
+        price: 38,
+        icon: 'fa-subway'
+      },
+      {
+        id: 6,
+        name: 'Capital Express',
+        type: 'Luxury',
+        from: 'New York',
+        to: 'Washington',
+        depart: '14:20',
+        arrive: '18:40',
+        duration: '4h 20m',
+        price: 55,
+        icon: 'fa-star'
+      },
+      {
+        id: 7,
+        name: 'Boston Cruiser',
+        type: 'Standard',
+        from: 'Boston',
+        to: 'New York',
+        depart: '09:00',
+        arrive: '13:40',
+        duration: '4h 40m',
+        price: 35,
+        icon: 'fa-bus'
+      },
+      {
+        id: 8,
+        name: 'Green Line',
+        type: 'Eco',
+        from: 'Boston',
+        to: 'New York',
+        depart: '16:30',
+        arrive: '21:00',
+        duration: '4h 30m',
+        price: 29,
+        icon: 'fa-leaf'
+      },
+      {
+        id: 9,
+        name: 'Royal Coach',
+        type: 'Luxury',
+        from: 'Chicago',
+        to: 'Detroit',
+        depart: '11:15',
+        arrive: '16:45',
+        duration: '5h 30m',
+        price: 62,
+        icon: 'fa-crown'
+      },
+      {
+        id: 10,
+        name: 'Lake Shore',
+        type: 'Standard',
+        from: 'Chicago',
+        to: 'Detroit',
+        depart: '18:00',
+        arrive: '23:30',
+        duration: '5h 30m',
+        price: 44,
+        icon: 'fa-ship'
+      }
+    ];
 
-            // Clear message (optional)
-            function clearMessage() {
-                messageBox.style.display = 'none';
-                messageBox.textContent = '';
-                messageBox.classList.remove('error', 'success');
-            }
+    // DOM elements
+    const ticketListEl = document.getElementById('ticketList');
+    const fromInput = document.getElementById('fromCity');
+    const toInput = document.getElementById('toCity');
+    const dateInput = document.getElementById('travelDate');
+    const passengerSelect = document.getElementById('passengerCount');
+    const searchBtn = document.getElementById('searchBtn');
+    const toastEl = document.getElementById('toast');
+    const toastText = document.getElementById('toastText');
 
-            // Main booking handler
-            function handleBooking(event) {
-                event.preventDefault();   // no page reload
+    // ---- RENDER FUNCTION (filtered) ----
+    function renderTickets() {
+      const fromFilter = fromInput.value.trim().toLowerCase();
+      const toFilter = toInput.value.trim().toLowerCase();
+      
+      // Filter based on from/to (if both empty we show all, but we set default values)
+      let filtered = allBuses.filter(bus => {
+        const matchFrom = fromFilter === '' || bus.from.toLowerCase().includes(fromFilter);
+        const matchTo = toFilter === '' || bus.to.toLowerCase().includes(toFilter);
+        return matchFrom && matchTo;
+      });
 
-                // --- validate fields ---
-                const movie = movieSelect.value;
-                const showtime = showtimeSelect.value;
-                const tickets = parseInt(ticketsInput.value, 10);
-                const seatType = seatTypeSelect.value;
+      // Sort by departure time (just for nicer display)
+      filtered.sort((a, b) => a.depart.localeCompare(b.depart));
 
-                // Movie validation
-                if (!movie) {
-                    showMessage('Please select a movie.', 'error');
-                    movieSelect.focus();
-                    return;
-                }
+      // Update count of passenger (for display only, but used for price)
+      const passengerCount = parseInt(passengerSelect.value, 10) || 1;
 
-                // Showtime validation
-                if (!showtime) {
-                    showMessage('Please select a showtime.', 'error');
-                    showtimeSelect.focus();
-                    return;
-                }
+      if (filtered.length === 0) {
+        ticketListEl.innerHTML = `
+          <div class="no-tickets">
+            <i class="fas fa-bus-slash"></i>
+            <p>No buses found for this route. Try different cities or clear filters.</p>
+          </div>
+        `;
+        return;
+      }
 
-                // Tickets validation
-                if (isNaN(tickets) || tickets < 1) {
-                    showMessage('Number of tickets must be at least 1.', 'error');
-                    ticketsInput.value = 1;   // reset to sensible value
-                    ticketsInput.focus();
-                    return;
-                }
-                if (tickets > 10) {
-                    showMessage('Maximum 10 tickets per booking. Please adjust.', 'error');
-                    ticketsInput.value = 10;
-                    ticketsInput.focus();
-                    return;
-                }
+      // build ticket cards
+      let html = '';
+      filtered.forEach(bus => {
+        const totalPrice = bus.price * passengerCount;
+        const priceDisplay = passengerCount > 1 
+          ? `$${totalPrice} <small>for ${passengerCount}</small>` 
+          : `$${bus.price} <small>per person</small>`;
 
-                // Additional validation: tickets should be integer (already parsed)
-                // Calculate price
-                const pricePerTicket = getSeatPrice(seatType);
-                const totalPrice = tickets * pricePerTicket;
+        html += `
+          <div class="ticket-card" data-bus-id="${bus.id}">
+            <div class="bus-info">
+              <div class="bus-name">
+                <i class="fas ${bus.icon}"></i> ${bus.name}
+              </div>
+              <span class="bus-type">${bus.type}</span>
+            </div>
+            <div class="route">
+              <div class="route-point">
+                <span class="time">${bus.depart}</span>
+                <span class="city">${bus.from}</span>
+              </div>
+              <div class="route-arrow">
+                <i class="fas fa-arrow-right"></i>
+              </div>
+              <div class="route-point">
+                <span class="time">${bus.arrive}</span>
+                <span class="city">${bus.to}</span>
+              </div>
+              <div class="duration">
+                <i class="far fa-clock"></i> ${bus.duration}
+              </div>
+            </div>
+            <div class="price-section">
+              <div class="price">${priceDisplay}</div>
+              <button class="book-btn" data-id="${bus.id}" data-name="${bus.name}">
+                <i class="fas fa-ticket-alt"></i> Book now
+              </button>
+            </div>
+          </div>
+        `;
+      });
 
-                // Create a friendly confirmation message
-                const seatLabel = seatType === 'Regular' ? 'Regular' :
-                                  seatType === 'Premium' ? 'Premium' : 'Recliner';
+      ticketListEl.innerHTML = html;
 
-                const summary = `Booking confirmed! 🎉\n` +
-                                `Movie: ${movie}\n` +
-                                `Showtime: ${showtime}\n` +
-                                `Tickets: ${tickets} × ${seatLabel} (₹${pricePerTicket} each)\n` +
-                                `Total: ₹${totalPrice}`;
+      // attach event listeners to "Book now" buttons
+      document.querySelectorAll('.book-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const busName = this.getAttribute('data-name');
+          const passengerCount = parseInt(passengerSelect.value, 10) || 1;
+          
+          // show toast
+          toastText.textContent = `✅ ${passengerCount} ticket(s) for "${busName}" booked!`;
+          toastEl.classList.add('show');
+          setTimeout(() => {
+            toastEl.classList.remove('show');
+          }, 2800);
+        });
+      });
+    }
 
-                // Show success message (with line breaks via innerHTML)
-                messageBox.style.display = 'flex';
-                messageBox.classList.remove('error', 'success');
-                messageBox.classList.add('success');
-                messageBox.innerHTML = `✅ <strong>Booking confirmed!</strong><br>` +
-                                       `🎬 ${movie} • 🕒 ${showtime}<br>` +
-                                       `🎟️ ${tickets} ${seatLabel} ticket(s) • 💰 Total: ₹${totalPrice}`;
+    // ---- SEARCH HANDLER ----
+    function handleSearch() {
+      // if both fields are empty, we still render (show all) — but we want to show everything if user clears.
+      // but we keep placeholders; user might clear fields.
+      // Also recalc with passenger count (already done in render)
+      renderTickets();
+    }
 
-                // (Optional) reset form? we don't reset to keep data visible; just a demo.
-                // But we can keep the fields as they are so user sees what was booked.
+    // ---- INITIAL LOAD ----
+    renderTickets();
 
-                // you could also disable button briefly for effect (not needed)
-            }
+    // ----- EVENT LISTENERS -----
+    searchBtn.addEventListener('click', handleSearch);
 
-            // Attach submit listener
-            form.addEventListener('submit', handleBooking);
+    // pressing Enter in any input triggers search
+    [fromInput, toInput, dateInput].forEach(input => {
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          handleSearch();
+        }
+      });
+    });
 
-            // Additional: clear message when user changes any field (nice UX)
-            // But keep it, because after an error it might be good to clear the error when user adjusts something.
-            function clearOnChange() {
-                if (messageBox.style.display === 'flex') {
-                    // but if it's a success, we may want to keep it? We'll keep it until next submit or clear on change (optional)
-                    // For better UX, we can clear success message when user changes fields because they may want to book again.
-                    // but it's fine to leave success message visible until next submit.
-                    // We'll only clear if the message is an error message (to avoid stale errors)
-                    if (messageBox.classList.contains('error')) {
-                        clearMessage();
-                    }
-                }
-            }
+    // passenger change re-renders (prices update)
+    passengerSelect.addEventListener('change', () => {
+      // re-render with current filters
+      renderTickets();
+    });
 
-            // Clear error messages when user modifies any form field (so they don't see stale error)
-            movieSelect.addEventListener('change', clearOnChange);
-            showtimeSelect.addEventListener('change', clearOnChange);
-            ticketsInput.addEventListener('input', clearOnChange);
-            seatTypeSelect.addEventListener('change', clearOnChange);
+    // Optional: reset filter when clicking a clear? not needed.
+    // Add dynamic re-render if user types & presses search only.
+    // But we can also re-render on the fly? not necessary.
+    // However, we want to keep "Book now" button consistent.
+    // Also update if from/to fields change? only on search.
+    // That's fine.
 
-            // For number input, also validate on blur (optional)
-            ticketsInput.addEventListener('blur', function() {
-                let val = parseInt(this.value, 10);
-                if (isNaN(val) || val < 1) {
-                    this.value = 1;
-                } else if (val > 10) {
-                    this.value = 10;
-                }
-            });
+    // but if user changes passenger count, re-render ticket cards (prices update)
+    // already handled.
 
-            // small initial demo: show a hint? not needed.
-            // But we can set a welcome message (optional)
-            // showMessage('Select movie, showtime & tickets.', 'info'); // maybe too noisy
-        })();
-    </script>
+    // also we can add a small reset (not needed)
+    // Make the search button show all if both fields empty? Actually we filter by both.
+    // If from/to are empty strings, filter shows all because `includes('')` returns true.
+    // So user can clear both and search to see all.
+  })();
+</script>
 </body>
 </html>
