@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket Booking – Basic Form</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+        body {
+            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f3f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 16px;
+        }
+        .booking-card {
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 500px;
+            padding: 32px 28px;
+            transition: all 0.2s;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #0b1a2e;
+            margin: 0 0 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h1 span {
+            background: #ffb800;
+            font-size: 1.8rem;
+            padding: 4px 12px;
+            border-radius: 40px;
+            color: #0b1a2e;
+            font-weight: 800;
+        }
+        .subhead {
+            color: #5e6f7d;
+            font-size: 1rem;
+            margin: 0 0 28px 0;
+            border-left: 4px solid #ffb800;
+            padding-left: 16px;
+            font-weight: 400;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #2c3e4e;
+            margin-bottom: 8px;
+        }
+        select, input {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 1rem;
+            background: #f2f6fa;
+            border: 2px solid #d9e2ec;
+            border-radius: 20px;
+            color: #0b1a2e;
+            font-weight: 500;
+            transition: 0.2s;
+            outline: none;
+        }
+        select:focus, input:focus {
+            border-color: #ffb800;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(255, 184, 0, 0.2);
+        }
+        .row-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .btn-book {
+            width: 100%;
+            background: #0b1a2e;
+            color: white;
+            border: none;
+            padding: 18px 24px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+            box-shadow: 0 12px 20px -8px rgba(11, 26, 46, 0.4);
+        }
+        .btn-book:hover {
+            background: #1e3a5a;
+            transform: scale(1.01);
+        }
+        .btn-book:active {
+            transform: scale(0.98);
+        }
+        .message-box {
+            margin-top: 24px;
+            padding: 16px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #e8f0fe;
+            color: #124076;
+            border-left: 6px solid #ffb800;
+            transition: 0.2s;
+        }
+        .message-box.error {
+            background: #ffe8e8;
+            color: #a11414;
+            border-left-color: #c62828;
+        }
+        .message-box.success {
+            background: #e3f7e8;
+            color: #0c5b2e;
+            border-left-color: #1e8f4e;
+        }
+        .price-badge {
+            display: inline-block;
+            background: #ffb800;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0b1a2e;
+            margin-left: 10px;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #a0b3c4;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="booking-card">
+        <h1>
+            🎬 CineBook
+            <span>🎟️</span>
+        </h1>
+        <p class="subhead">Book your movie tickets in seconds</p>
+
+        <!-- booking form (no page reload) -->
+        <form id="bookingForm" action="#" method="post">
+            <!-- movie selector -->
+            <div class="form-group">
+                <label for="movie">Select Movie</label>
+                <select id="movie" name="movie" required>
+                    <option value="" disabled selected>— Choose a movie —</option>
+                    <option value="Dune: Part Two">Dune: Part Two (Sci-Fi)</option>
+                    <option value="Oppenheimer">Oppenheimer (Drama)</option>
+                    <option value="The Batman">The Batman (Action)</option>
+                    <option value="Barbie">Barbie (Comedy)</option>
+                    <option value="Interstellar">Interstellar (Sci-Fi)</option>
+                </select>
+            </div>
+
+            <!-- showtime + number of tickets -->
+            <div class="row-2col">
+                <div class="form-group">
+                    <label for="showtime">Showtime</label>
+                    <select id="showtime" name="showtime" required>
+                        <option value="" disabled selected>— Time —</option>
+                        <option value="10:30 AM">10:30 AM</option>
+                        <option value="01:45 PM">01:45 PM</option>
+                        <option value="05:00 PM">05:00 PM</option>
+                        <option value="08:15 PM">08:15 PM</option>
+                        <option value="10:45 PM">10:45 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tickets">Tickets</label>
+                    <input type="number" id="tickets" name="tickets" min="1" max="10" value="2" required>
+                </div>
+            </div>
+
+            <!-- seat preference (extra detail) -->
+            <div class="form-group">
+                <label for="seatType">Seat Preference</label>
+                <select id="seatType" name="seatType">
+                    <option value="Regular" selected>Regular (₹250)</option>
+                    <option value="Premium">Premium (₹380)</option>
+                    <option value="Recliner">Recliner (₹550)</option>
+                </select>
+            </div>
+
+            <!-- book button -->
+            <button type="submit" class="btn-book" id="bookBtn">
+                🎫 Book Tickets
+            </button>
+        </form>
+
+        <!-- dynamic message area -->
+        <div id="messageBox" class="message-box" style="display: none;">
+            <!-- message injected via JS -->
+        </div>
+        <div class="footer-note">* basic demo – no real transaction</div>
+    </div>
+
+    <script>
+        (function() {
+            // Get DOM elements
+            const form = document.getElementById('bookingForm');
+            const movieSelect = document.getElementById('movie');
+            const showtimeSelect = document.getElementById('showtime');
+            const ticketsInput = document.getElementById('tickets');
+            const seatTypeSelect = document.getElementById('seatType');
+            const messageBox = document.getElementById('messageBox');
+            const bookBtn = document.getElementById('bookBtn');
+
+            // Helper: base price per seat based on seat type
+            function getSeatPrice(seatType) {
+                switch (seatType) {
+                    case 'Regular': return 250;
+                    case 'Premium': return 380;
+                    case 'Recliner': return 550;
+                    default: return 250;
+                }
+            }
+
+            // Helper: show message with type (success / error / info)
+            function showMessage(text, type = 'info') {
+                messageBox.style.display = 'flex';
+                messageBox.textContent = text;
+                // remove previous type classes
+                messageBox.classList.remove('error', 'success');
+                if (type === 'error') {
+                    messageBox.classList.add('error');
+                } else if (type === 'success') {
+                    messageBox.classList.add('success');
+                } else {
+                    // default / info style (same as base .message-box)
+                    // no extra class needed, but ensure error/success removed
+                }
+                // add a small emoji for clarity
+                if (type === 'error') {
+                    messageBox.innerHTML = '⚠️ ' + text;
+                } else if (type === 'success') {
+                    messageBox.innerHTML = '✅ ' + text;
+                } else {
+                    messageBox.innerHTML = 'ℹ️ ' + text;
+                }
+            }
+
+            // Clear message (optional)
+            function clearMessage() {
+                messageBox.style.display = 'none';
+                messageBox.textContent = '';
+                messageBox.classList.remove('error', 'success');
+            }
+
+            // Main booking handler
+            function handleBooking(event) {
+                event.preventDefault();   // no page reload
+
+                // --- validate fields ---
+                const movie = movieSelect.value;
+                const showtime = showtimeSelect.value;
+                const tickets = parseInt(ticketsInput.value, 10);
+                const seatType = seatTypeSelect.value;
+
+                // Movie validation
+                if (!movie) {
+                    showMessage('Please select a movie.', 'error');
+                    movieSelect.focus();
+                    return;
+                }
+
+                // Showtime validation
+                if (!showtime) {
+                    showMessage('Please select a showtime.', 'error');
+                    showtimeSelect.focus();
+                    return;
+                }
+
+                // Tickets validation
+                if (isNaN(tickets) || tickets < 1) {
+                    showMessage('Number of tickets must be at least 1.', 'error');
+                    ticketsInput.value = 1;   // reset to sensible value
+                    ticketsInput.focus();
+                    return;
+                }
+                if (tickets > 10) {
+                    showMessage('Maximum 10 tickets per booking. Please adjust.', 'error');
+                    ticketsInput.value = 10;
+                    ticketsInput.focus();
+                    return;
+                }
+
+                // Additional validation: tickets should be integer (already parsed)
+                // Calculate price
+                const pricePerTicket = getSeatPrice(seatType);
+                const totalPrice = tickets * pricePerTicket;
+
+                // Create a friendly confirmation message
+                const seatLabel = seatType === 'Regular' ? 'Regular' :
+                                  seatType === 'Premium' ? 'Premium' : 'Recliner';
+
+                const summary = `Booking confirmed! 🎉\n` +
+                                `Movie: ${movie}\n` +
+                                `Showtime: ${showtime}\n` +
+                                `Tickets: ${tickets} × ${seatLabel} (₹${pricePerTicket} each)\n` +
+                                `Total: ₹${totalPrice}`;
+
+                // Show success message (with line breaks via innerHTML)
+                messageBox.style.display = 'flex';
+                messageBox.classList.remove('error', 'success');
+                messageBox.classList.add('success');
+                messageBox.innerHTML = `✅ <strong>Booking confirmed!</strong><br>` +
+                                       `🎬 ${movie} • 🕒 ${showtime}<br>` +
+                                       `🎟️ ${tickets} ${seatLabel} ticket(s) • 💰 Total: ₹${totalPrice}`;
+
+                // (Optional) reset form? we don't reset to keep data visible; just a demo.
+                // But we can keep the fields as they are so user sees what was booked.
+
+                // you could also disable button briefly for effect (not needed)
+            }
+
+            // Attach submit listener
+            form.addEventListener('submit', handleBooking);
+
+            // Additional: clear message when user changes any field (nice UX)
+            // But keep it, because after an error it might be good to clear the error when user adjusts something.
+            function clearOnChange() {
+                if (messageBox.style.display === 'flex') {
+                    // but if it's a success, we may want to keep it? We'll keep it until next submit or clear on change (optional)
+                    // For better UX, we can clear success message when user changes fields because they may want to book again.
+                    // but it's fine to leave success message visible until next submit.
+                    // We'll only clear if the message is an error message (to avoid stale errors)
+                    if (messageBox.classList.contains('error')) {
+                        clearMessage();
+                    }
+                }
+            }
+
+            // Clear error messages when user modifies any form field (so they don't see stale error)
+            movieSelect.addEventListener('change', clearOnChange);
+            showtimeSelect.addEventListener('change', clearOnChange);
+            ticketsInput.addEventListener('input', clearOnChange);
+            seatTypeSelect.addEventListener('change', clearOnChange);
+
+            // For number input, also validate on blur (optional)
+            ticketsInput.addEventListener('blur', function() {
+                let val = parseInt(this.value, 10);
+                if (isNaN(val) || val < 1) {
+                    this.value = 1;
+                } else if (val > 10) {
+                    this.value = 10;
+                }
+            });
+
+            // small initial demo: show a hint? not needed.
+            // But we can set a welcome message (optional)
+            // showMessage('Select movie, showtime & tickets.', 'info'); // maybe too noisy
+        })();
+    </script>
+</body>
+</html>
